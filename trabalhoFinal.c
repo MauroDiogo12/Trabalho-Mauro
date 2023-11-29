@@ -4,7 +4,7 @@
 //Definicao das structs
 struct Data
 {
-    int data;
+    int dia;
     int mes;
     int ano;
 };
@@ -42,7 +42,7 @@ int validarnome(char nome[50]){
         return 1;
     }
 
-    else if(strlen(nome) < 3){
+    else if(strlen(nome) < 4){
         return 1;
     }
 
@@ -61,9 +61,10 @@ int validartelefone(char telefone[15]){
     if(telefone[0] != '0'){
         return 1;
     }
-    else if(strlen(telefone) != 11 || strlen(telefone) != 12){
+    else if(strlen(telefone) != 11 && strlen(telefone) != 12){
         return 1;
     }
+
     return 0;
 }
 
@@ -99,17 +100,18 @@ int cadastrarclientes(struct Cliente *clientes,int cont){
             printf("\e[1;1H\e[2J");
 
             printf("Por Favor digite o telefone do Cliente: ");
-            scanf(" %[^\n]",clientes->telefone_do_cliente);
+            scanf(" %[^\n]",telefonetemp);
 
             printf("\e[1;1H\e[2J");
 
-            if(validartelefone(telefonetemp)){
+            if(validartelefone(telefonetemp) == 0){
                 strcpy(clientes[cont].telefone_do_cliente,telefonetemp);
-                break;
-                
+                break;    
             }
             else{
                 printf("Telefone invalido\n");
+                getchar();
+                getchar();
             }
     }
     
@@ -117,7 +119,63 @@ int cadastrarclientes(struct Cliente *clientes,int cont){
     return 0;
 }
 
-int cadstrarPet();
+int cadstrarPet(struct Animal *animais, int cont){
+
+    char nometemp[50],nomeclientetemp[50];
+
+    while(1){
+   
+    printf("\e[1;1H\e[2J");
+
+    printf("Por favor digite o nome do Animal: ");
+    scanf(" %[^\n]",nometemp);
+
+    printf("\e[1;1H\e[2J");
+
+    if(validarnome(nometemp) == 0){
+        strcpy(animais[cont].nome_do_animal, nometemp);
+        break;
+    }
+
+    else{
+        printf("Nome invalido\n");
+        getchar();
+        getchar();
+    }
+    }
+
+    printf("Por favor informe o codigo da especie\n1 - Cachorro\n2 - Gato\n3 - Passaro\n 4 - Outros\n");
+    scanf(" %d",&animais[cont].especie);
+
+    printf("Por favor digite se o animal é agressivo ou não (S/N): ");
+    scanf(" %c",&animais[cont].agressivo);
+
+    printf("Por favor digite a data de nascimento do animal no formato(Dia/Mes/Ano):\n");
+    scanf( "%d/%d/%d",&animais[cont].data_nascimento.dia,&animais[cont].data_nascimento.mes,&animais[cont].data_nascimento.ano);
+
+     while(1){
+   
+    printf("\e[1;1H\e[2J");
+
+    printf("Por favor digite o nome do Cliente dono do animal: ");
+    scanf(" %[^\n]",nometemp);
+
+    printf("\e[1;1H\e[2J");
+
+    if(validarnome(nometemp) == 0){
+        strcpy(animais[cont].cliente.nome_do_cliente, nometemp);
+        break;
+    }
+
+    else{
+        printf("Nome invalido\n");
+        getchar();
+        getchar();
+    }
+    }
+
+return 0;
+}
 
 
 int main(){
