@@ -7,9 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/home/cruellest/Trabalho-Mauro",
-      "program": "/home/cruellest/Trabalho-Mauro/build/Debug/outDebug",
+      "externalConsole": true,
+      "cwd": "c:/Users/ferna/Trabalho-Mauro",
+      "program": "c:/Users/ferna/Trabalho-Mauro/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
