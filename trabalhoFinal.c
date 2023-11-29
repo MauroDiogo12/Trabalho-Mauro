@@ -4,7 +4,7 @@
 //Definicao das structs
 struct Data
 {
-    int data;
+    int dia;
     int mes;
     int ano;
 };
@@ -34,6 +34,29 @@ struct Servico
 
 };
 
+//Retorna se a data é valida ou não, 0 para caso for valida e 1 para caso não seja
+int validarData(struct Data dataValidada){
+
+    struct Data dAtual;
+
+    printf("\nInforme a data de hoje (d/m/a): ");
+    scanf(" %d/%d/%d", &dAtual.dia, &dAtual.mes, &dAtual.ano);
+
+    //validar ano:
+    if(dataValidada.ano <= dAtual.ano){
+        //validar mês:
+        if((dataValidada.ano == dAtual.ano && dataValidada.mes <= dAtual.mes) || (dataValidada.ano != dAtual.ano && dataValidada.mes <= 12)){
+            //validar dia (mês comercial):
+            if((dataValidada.mes == dAtual.mes && dataValidada.dia <= dAtual.dia) || (dataValidada.mes != dAtual.mes && dataValidada.dia <= 30)){   
+                printf("\nData válida.");
+                return 0;
+            }
+        }
+    } 
+    printf("\nData inválida.");
+    return 1;
+
+}
 
 //Retorna se o nome é valido ou não, 0 para caso for valido e 1 para caso não seja
 int validarnome(char nome[50]){
@@ -126,11 +149,26 @@ int main(){
     struct Cliente clientes[50];
     int numClientes = 0;
 
-
-
     cadastrarclientes(clientes,numClientes);
     numClientes++;
 
+    int op;
+    scanf("%d", &op);
+
+    do{
+
+        if(op == 1){
+
+        } else if(op == 2){
+
+        }
+        else if (op == 3){
+        }
+        else if (op == 4){
+            //validarData();
+        }
+
+    }while (op != 11);
 
 
     return 0;
