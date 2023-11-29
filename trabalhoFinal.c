@@ -116,3 +116,22 @@ int cadastrarclientes(struct Cliente *clientes,int cont){
 
     return 0;
 }
+
+int cadstrarPet();
+
+
+int main(){
+
+
+    struct Cliente clientes[50];
+    int numClientes = 0;
+
+
+
+    cadastrarclientes(clientes,numClientes);
+    numClientes++;
+
+
+
+    return 0;
+}
