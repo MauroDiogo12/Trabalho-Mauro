@@ -141,8 +141,10 @@ int cadastrarclientes(struct Cliente *clientes,int cont){
 
 int cadstrarPet(struct Animal *animais, int cont){
 
-    char nometemp[50];
+    char nometemp[50],agressivotemp;
     struct Data temp;
+    int tempesp;
+
 
     while(1){
    
@@ -165,11 +167,53 @@ int cadstrarPet(struct Animal *animais, int cont){
     }
     }
 
+
+    while(1){
+    printf("\e[1;1H\e[2J");
+
     printf("Por favor informe o codigo da especie\n1 - Cachorro\n2 - Gato\n3 - Passaro\n4 - Outros\n");
-    scanf(" %d",&animais[cont].especie);
+    scanf(" %d",&tempesp);
+
+    printf("\e[1;1H\e[2J");
+    
+    if(tempesp >4){
+        
+        printf("Entrada Invalida");
+        getchar();
+        getchar();
+    }
+    else{
+        animais[cont].especie = tempesp;
+        printf("\e[1;1H\e[2J");
+        break;
+    }
+    }
+
+    while(1){
+
+    printf("\e[1;1H\e[2J");
 
     printf("Por favor digite se o animal é agressivo ou não (S/N): ");
-    scanf(" %c",&animais[cont].agressivo);
+    scanf(" %c",&agressivotemp);
+    
+    printf("\e[1;1H\e[2J");
+
+    if (agressivotemp == 'S' || agressivotemp == 's' || agressivotemp == 'N' || agressivotemp == 'n')
+    {
+     animais[cont].agressivo = agressivotemp;
+     break;
+    }
+
+    else{
+        
+        printf("Entrada Invalida\n");
+        getchar();
+        getchar();
+        printf("\e[1;1H\e[2J");
+    }
+    
+
+    }
 
     while(1){
     printf("Por favor digite a data de nascimento do animal no formato(Dia/Mes/Ano):\n");
@@ -248,6 +292,19 @@ int listarpets(struct Animal *animais, int cont) {
     return 0;
 }
 
+int retornarPetsAgressivos(struct Animal *animais,int cont){
+    int qnt = 0;
+
+    for (int i = 0; i < cont; i++)
+    {
+        if(animais[i].agressivo == 's' || animais[i].agressivo == 'S'){
+            qnt++;
+        }
+    }
+    
+    return qnt;
+}
+
 int main(){
 
     printf("\e[1;1H\e[2J");
@@ -259,11 +316,12 @@ int main(){
 
     while(op != 0){
 
-    printf("Menu de Gerenciamento do Pet shop\n\n");
+    printf("\nMenu de Gerenciamento do Pet shop\n\n");
     printf("1- Cadastrar Cliente\n");
     printf("2- Cadastrar Pet\n");
     printf("3- Buscar Clientes\n");
     printf("4- Listar Pets\n");
+    printf("5- Mostrar quantidade de animais Agressivos\n");
     printf("Opcao: ");
     scanf(" %d",&op);
 
@@ -281,7 +339,7 @@ int main(){
 
     case 3:
 
-
+        printf("\e[1;1H\e[2J");
         printf("Por favor Digite o Nome do Cliente: ");
         scanf(" %[^\n]",nome);
 
@@ -292,7 +350,14 @@ int main(){
 
         listarpets(animais,numAnimais);
 
+        break;
+
+    case 5:
+        printf("\nExistem %d animais agressivos cadastrados.\n",retornarPetsAgressivos(animais,numAnimais));
+
+
     break;
+
     default:
         break;
     }
