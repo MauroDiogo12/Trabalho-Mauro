@@ -1,3 +1,10 @@
+/******************************************************************************
+                        ! ! !  Trabalho Final  ! ! !
+
+  Ryan de Marque Sales;
+  Mauro Diogo Fioravante Ferreira;
+  Joâo Paulo Gonçalves Barros.
+*******************************************************************************/
 #include <string.h>
 #include <stdio.h>
 
