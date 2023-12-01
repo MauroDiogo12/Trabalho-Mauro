@@ -220,6 +220,34 @@ int buscarcliente(struct Cliente *cliente,int cont,char nome[50],struct Animal *
     getchar();
 }
 
+void ordenarAnimais(struct Animal *animais, int cont) {
+    struct Animal temp;
+    for (int i = 0; i < cont - 1; i++) {
+        for (int j = i + 1; j < cont; j++) {
+            if (strcmp(animais[i].nome_do_animal, animais[j].nome_do_animal) > 0) {
+                temp = animais[i];
+                animais[i] = animais[j];
+                animais[j] = temp;
+            }
+        }
+    }
+}
+
+int listarpets(struct Animal *animais, int cont) {
+    ordenarAnimais(animais, cont);
+    printf("\e[1;1H\e[2J\n");
+    for (int i = 0; i < cont; i++) {
+        printf("Nome do Animal: %s\n", animais[i].nome_do_animal);
+        printf("Especie do animal: %d\n", animais[i].especie);
+        printf("Data de Nascimento: %d/%d/%d\n", animais[i].data_nascimento.dia, animais[i].data_nascimento.mes, animais[i].data_nascimento.ano);
+        printf("Agressivo: %c\n", animais[i].agressivo);
+        printf("\n");
+    }
+    getchar();
+    getchar();
+    return 0;
+}
+
 int main(){
 
     printf("\e[1;1H\e[2J");
@@ -235,6 +263,8 @@ int main(){
     printf("1- Cadastrar Cliente\n");
     printf("2- Cadastrar Pet\n");
     printf("3- Buscar Clientes\n");
+    printf("4- Listar Pets\n");
+    printf("Opcao: ");
     scanf(" %d",&op);
 
     switch (op)
@@ -258,6 +288,11 @@ int main(){
         buscarcliente(clientes,numClientes,nome,animais,numAnimais);
         break;
 
+    case 4:
+
+        listarpets(animais,numAnimais);
+
+    break;
     default:
         break;
     }
