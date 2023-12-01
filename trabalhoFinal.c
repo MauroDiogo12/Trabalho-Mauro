@@ -145,6 +145,7 @@ int cadastrarclientes(struct Cliente *clientes,int cont){
 int cadstrarPet(struct Animal *animais, int cont){
 
     char nometemp[50],nomeclientetemp[50];
+    struct Data temp;
 
     while(1){
    
@@ -173,8 +174,17 @@ int cadstrarPet(struct Animal *animais, int cont){
     printf("Por favor digite se o animal é agressivo ou não (S/N): ");
     scanf(" %c",&animais[cont].agressivo);
 
+    while(1){
     printf("Por favor digite a data de nascimento do animal no formato(Dia/Mes/Ano):\n");
-    scanf( "%d/%d/%d",&animais[cont].data_nascimento.dia,&animais[cont].data_nascimento.mes,&animais[cont].data_nascimento.ano);
+    scanf( "%d/%d/%d",&temp.dia,&temp.mes,&temp.ano);
+
+    if (1);
+    {
+        /* code */
+    }
+    
+    }
+
 
      while(1){
    
