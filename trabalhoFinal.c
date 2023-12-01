@@ -40,7 +40,7 @@ int validarData(struct Data dataValidada){
     struct Data dAtual;
 
     printf("\nInforme a data de hoje (d/m/a): ");
-    scanf(" %d/%d/%d", &dAtual.dia, &dAtual.mes, &dAtual.ano);
+    scanf(" %d/%d/%d",&dAtual.dia,&dAtual.mes,&dAtual.ano);
 
     //validar ano:
     if(dataValidada.ano <= dAtual.ano){
@@ -48,12 +48,10 @@ int validarData(struct Data dataValidada){
         if((dataValidada.ano == dAtual.ano && dataValidada.mes <= dAtual.mes) || (dataValidada.ano != dAtual.ano && dataValidada.mes <= 12)){
             //validar dia (mês comercial):
             if((dataValidada.mes == dAtual.mes && dataValidada.dia <= dAtual.dia) || (dataValidada.mes != dAtual.mes && dataValidada.dia <= 30)){   
-                printf("\nData válida.");
                 return 0;
             }
         }
     } 
-    printf("\nData inválida.");
     return 1;
 
 }
@@ -138,13 +136,12 @@ int cadastrarclientes(struct Cliente *clientes,int cont){
             }
     }
     
-
     return 0;
 }
 
 int cadstrarPet(struct Animal *animais, int cont){
 
-    char nometemp[50],nomeclientetemp[50];
+    char nometemp[50];
     struct Data temp;
 
     while(1){
@@ -168,7 +165,7 @@ int cadstrarPet(struct Animal *animais, int cont){
     }
     }
 
-    printf("Por favor informe o codigo da especie\n1 - Cachorro\n2 - Gato\n3 - Passaro\n 4 - Outros\n");
+    printf("Por favor informe o codigo da especie\n1 - Cachorro\n2 - Gato\n3 - Passaro\n4 - Outros\n");
     scanf(" %d",&animais[cont].especie);
 
     printf("Por favor digite se o animal é agressivo ou não (S/N): ");
@@ -178,66 +175,91 @@ int cadstrarPet(struct Animal *animais, int cont){
     printf("Por favor digite a data de nascimento do animal no formato(Dia/Mes/Ano):\n");
     scanf( "%d/%d/%d",&temp.dia,&temp.mes,&temp.ano);
 
-    if (1);
-    {
-        /* code */
-    }
-    
-    }
-
-
-     while(1){
-   
-    printf("\e[1;1H\e[2J");
-
-    printf("Por favor digite o nome do Cliente dono do animal: ");
-    scanf(" %[^\n]",nometemp);
-
-    printf("\e[1;1H\e[2J");
-
-    if(validarnome(nometemp) == 0){
-        strcpy(animais[cont].cliente.nome_do_cliente, nometemp);
+    if (validarData(temp) == 0){
+        animais[cont].data_nascimento.dia = temp.dia;
+        animais[cont].data_nascimento.mes = temp.mes;
+        animais[cont].data_nascimento.ano = temp.ano;
         break;
     }
-
     else{
-        printf("Nome invalido\n");
+
+        printf("\e[1;1H\e[2J");
+        printf("Data Invalida\n");
         getchar();
         getchar();
-    }
     }
 
-return 0;
+    }
+
+    cadastrarclientes(&animais[cont].cliente,0);
+
+    return 0;
 }
 
+int buscarcliente(struct Cliente *cliente,int cont,char nome[50],struct Animal *animais, int contanimais){
+    printf("\e[1;1H\e[2J");
+
+    for (int i = 0; i < cont; i++){
+
+        if(strcmp(cliente[i].nome_do_cliente,nome) == 0){
+            printf("\nNome do Cliente: %s\nTelefone do Cliente: %s\n\n",cliente[i].nome_do_cliente,cliente[i].telefone_do_cliente);
+
+            for (int j = 0; j < contanimais; j++)
+            {
+                if (strcmp(animais[j].cliente.nome_do_cliente,cliente[i].nome_do_cliente) == 0){
+                    printf("Nome do Animal: %s\nEspecie do animal: %d\nData de Nascimento: %d/%d/%d\nAgressivo: %c\n\n",animais[j].nome_do_animal,animais[j].especie,animais[j].data_nascimento.dia,animais[j].data_nascimento.mes,animais[j].data_nascimento.ano,animais[j].agressivo);
+                }
+                
+            }
+            
+        }
+
+    
+}
+    getchar();
+    getchar();
+}
 
 int main(){
 
-
+    printf("\e[1;1H\e[2J");
     struct Cliente clientes[50];
-    int numClientes = 0;
+    struct Animal animais[50];
+    
+    char nome[50];
+    int op = -1,numAnimais=0,numClientes=0;
 
-    cadastrarclientes(clientes,numClientes);
-    numClientes++;
+    while(op != 0){
 
-    int op;
-    scanf("%d", &op);
+    printf("Menu de Gerenciamento do Pet shop\n\n");
+    printf("1- Cadastrar Cliente\n");
+    printf("2- Cadastrar Pet\n");
+    printf("3- Buscar Clientes\n");
+    scanf(" %d",&op);
 
-    do{
+    switch (op)
+    {
+    case 1:
+        cadastrarclientes(clientes,numClientes);
+        numClientes++;
+        break;
+    
+    case 2:
+        cadstrarPet(animais,numAnimais);
+        numAnimais++;
+        break;
 
-        if(op == 1){
-
-        } else if(op == 2){
-
-        }
-        else if (op == 3){
-        }
-        else if (op == 4){
-            //validarData();
-        }
-
-    }while (op != 11);
+    case 3:
 
 
-    return 0;
+        printf("Por favor Digite o Nome do Cliente: ");
+        scanf(" %[^\n]",nome);
+
+        buscarcliente(clientes,numClientes,nome,animais,numAnimais);
+        break;
+
+    default:
+        break;
+    }
+    }
 }
